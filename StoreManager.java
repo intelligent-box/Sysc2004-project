@@ -4,9 +4,17 @@
 // January 27th 2021
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class StoreManager {
-    public StoreManager(){}
+    Inventory inventory;
+    ArrayList<StoreView> views;
+
+    public StoreManager(){
+        inventory = new Inventory();
+        views = new ArrayList<>();
+    }
+
     public boolean test(){
         System.out.println("Hello, If you are reading this, You are looking at milestone 1");
 
@@ -26,18 +34,25 @@ public class StoreManager {
         i1.addProduct(p3, 5);
         i1.addProduct(p4);
         i1.addProduct(p5);
+        System.out.println(i1);
 
         System.out.println("Testing restocking");
         i1.stock("43676", 2); //error trigger: ID not recognised
         i1.stock("23458", 42);
         i1.stock("00040", 1);
+        System.out.println(i1);
 
         System.out.println("Testing destocking");
         i1.stock("34587", -4);
         i1.stock("00040", -1);
         i1.stock("24907", -8); //error trigger: QTY BELOW 0
+        System.out.println(i1);
 
         System.out.println("Testing finished and didn't crash! Hooray");
         return true;
+    }
+
+    public void newView() {
+        views.add(new StoreView(String.valueOf(views.size())));
     }
 }

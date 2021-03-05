@@ -69,4 +69,24 @@ public class Inventory {
         return false;
     }
 
+
+    @Override
+    public String toString() {
+        String str = "";
+        for (int i = 0; i < products.size(); i++){
+            str += products.get(i);
+            str += " Quantity=";
+            str += quantity.get(i);
+            str += "\n";
+        }
+        return str;
+    }
+
+    public ArrayList<Integer> getQuantity() {
+        return quantity;
+    }
+
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
 }
