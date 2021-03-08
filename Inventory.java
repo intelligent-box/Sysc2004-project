@@ -33,7 +33,7 @@ public class Inventory {
         return true;
     }
 
-    private Product getProduct(String id){
+    public Product getProduct(String id){
         for (Product i: products){
             if (i.getId().equals(id)){
                 return i;
@@ -69,13 +69,22 @@ public class Inventory {
         return false;
     }
 
+    public boolean setQTY(String id, int qty){
+        Product i = getProduct(id);
+        if (i != null) {
+            quantity.set(products.indexOf(i), qty);
+            return true;
+        }
+        return false;
+    }
+
 
     @Override
     public String toString() {
         String str = "";
         for (int i = 0; i < products.size(); i++){
             str += products.get(i);
-            str += " Quantity=";
+            str += ", Quantity = ";
             str += quantity.get(i);
             str += "\n";
         }

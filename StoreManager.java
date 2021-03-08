@@ -7,12 +7,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class StoreManager {
-    Inventory inventory;
-    ArrayList<StoreView> views;
+    private Inventory inventory;
+    private ArrayList<StoreView> views;
+    private ArrayList<ShoppingCart> carts;
 
     public StoreManager(){
         inventory = new Inventory();
         views = new ArrayList<>();
+        carts = new ArrayList<>();
     }
 
     public boolean test(){
@@ -52,7 +54,125 @@ public class StoreManager {
         return true;
     }
 
-    public void newView() {
-        views.add(new StoreView(String.valueOf(views.size())));
+    public String newView() {
+        carts.add(new ShoppingCart(String.valueOf(views.size())));
+        views.add(new StoreView(String.valueOf(views.size()), this));
+
+        return "New StoreView Created Successfully";
+    }
+
+    public String displayStoreViews() {
+        String s = "StoreView Names";
+        for (StoreView i: views){
+            s += i.getNick();
+            s += "\n";
+        }
+        return s;
+    }
+
+    public void selectStoreView(String nick) {
+        for (StoreView i: views){
+            if(i.getNick().equals(nick)){
+                i.run();
+            }
+        }
+    }
+
+    public void run(){ //manage backend
+        boolean quit = false;
+        char program;
+        Keyboard in = new Keyboard();
+        String itemName, itemID, itemPrice;
+        int itemQTY;
+        BigDecimal realPrice;
+
+        while (quit != true) {
+            System.out.println("\nPlease select a Function:");
+            System.out.println("Function                        Type\n");
+            System.out.println("Display Inventory		        	D");
+            System.out.println("Add New Item to Inventory		   	N");
+            System.out.println("Add Item Stock		             	S");
+            System.out.println("Remove Item	Stock	            	R");
+            System.out.println("Override Stock		            	O");
+            System.out.println("Return to Main Menu                 Q");
+
+            program = in.getCharacter();
+            switch (program){
+                case 'd':
+                case 'D':
+                    System.out.println(this.inventory);
+                    break;
+
+                case 'n':
+                case 'N':
+                    System.out.println("Product name: ");
+                    itemName = in.getString();
+                    System.out.println("Product ID: ");
+                    itemID = in.getString();
+                    System.out.println("Product Price: ");
+                    itemPrice = in.getString();
+                    System.out.println("Product QTY: ");
+                    itemQTY = in.getInteger();
+                    this.inventory.addProduct(new Product(itemName, itemID ,new BigDecimal(itemPrice)), itemQTY);
+                    System.out.println("\nProduct Added");
+                    break;
+
+                case 's':
+                case 'S':
+                    System.out.println("Product ID: ");
+                    itemID = in.getString();
+                    System.out.println("Product QTY to add: ");
+                    itemQTY = in.getInteger();
+                    this.inventory.stock(itemID, itemQTY);
+                    System.out.format("\nInventory now contains %d %s",
+                            this.inventory.getQty(itemID),
+                            this.inventory.getProduct(itemID));
+                    break;
+
+                case 'r':
+                case 'R':
+                    System.out.println("Product ID: ");
+                    itemID = in.getString();
+                    System.out.println("Product QTY to remove: ");
+                    itemQTY = in.getInteger();
+                    this.inventory.stock(itemID, 0-itemQTY);
+                    System.out.format("\nInventory now contains %d %s",
+                            this.inventory.getQty(itemID),
+                            this.inventory.getProduct(itemID));
+                    break;
+
+                case 'o':
+                case 'O':
+                    System.out.println("Product ID: ");
+                    itemID = in.getString();
+                    System.out.println("Product QTY: ");
+                    itemQTY = in.getInteger();
+                    this.inventory.setQTY(itemID, itemQTY);
+                    System.out.format("Inventory now contains %d %s",
+                            this.inventory.getQty(itemID),
+                            this.inventory.getProduct(itemID));
+                    break;
+
+                case 'q':
+                case 'Q':
+                    quit = true;
+
+                default :
+                    break;
+            }
+        }
+    }
+
+    public Inventory getInventory() {
+        return this.inventory;
+    }
+
+    public ShoppingCart getCart(String nick) {
+        for (ShoppingCart i: carts){
+            if (i.getNick().equals(nick)){
+                return i;
+            }
+        }
+        return null;
     }
 }
