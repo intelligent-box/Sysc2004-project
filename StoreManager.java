@@ -1,23 +1,33 @@
-// SYSC2004 Project
-// Milestone 1
-// Michael Silveira 101145789
-// January 27th 2021
-
+/**
+ * @author Michael Silveira
+ * @studentID 101145789
+ * @date March 8th 2021
+ * @milestone 2
+ */
 import java.math.BigDecimal;
 import java.util.ArrayList;
-
+/**
+ * The StoreManager class is the management backend that hosts the inventory, storeviews and shoppingcarts.
+ */
 public class StoreManager {
     private Inventory inventory;
     private ArrayList<StoreView> views;
     private ArrayList<ShoppingCart> carts;
 
+    /**
+     * This default constructor initializes the inventory and arrayLists.
+     */
     public StoreManager(){
         inventory = new Inventory();
         views = new ArrayList<>();
         carts = new ArrayList<>();
     }
 
-    public boolean test(){
+    /**
+     * This method is depreciated, from milestone 1 for testing the Product and Inventory classes.
+     * @return is a boolean if test passes
+     */
+    private boolean test(){
         System.out.println("Hello, If you are reading this, You are looking at milestone 1");
 
         System.out.println("Creating new products");
@@ -52,17 +62,24 @@ public class StoreManager {
 
         System.out.println("Testing finished and didn't crash! Hooray");
         return true;
-    }
+    } //Depreciated
 
+    /**
+     * This method adds a new StoreView and new ShoppingCart to their respective ArrayLists.
+     * @return is a String confirming the addition.
+     */
     public String newView() {
         carts.add(new ShoppingCart(String.valueOf(views.size())));
         views.add(new StoreView(String.valueOf(views.size()), this));
-
         return "New StoreView Created Successfully";
     }
 
+    /**
+     * This method displays the ArrayList of StoreViews names.
+     * @return is a String with the storeview names
+     */
     public String displayStoreViews() {
-        String s = "StoreView Names";
+        String s = "StoreView Names\n";
         for (StoreView i: views){
             s += i.getNick();
             s += "\n";
@@ -70,6 +87,10 @@ public class StoreManager {
         return s;
     }
 
+    /**
+     * This method calls the StoreView sub-routine for the StoreView based on it's Nick(nickname).
+     * @param nick is a String.
+     */
     public void selectStoreView(String nick) {
         for (StoreView i: views){
             if(i.getNick().equals(nick)){
@@ -78,6 +99,23 @@ public class StoreManager {
         }
     }
 
+    /**
+     * This method removes/closes a StoreView given from a nickname.
+     * @param nick is a String.
+     */
+    public void removeStoreView(String nick) {
+        for (StoreView i: views){
+            if(i.getNick().equals(nick)){
+                //return cart contents
+                carts.remove(views.indexOf(i));
+                views.remove(views.indexOf(i));
+            }
+        }
+    }
+
+    /**
+     * This is a Manager Sub-routine that runs to allow a manager to control the inventory.
+     */
     public void run(){ //manage backend
         boolean quit = false;
         char program;
@@ -85,6 +123,8 @@ public class StoreManager {
         String itemName, itemID, itemPrice;
         int itemQTY;
         BigDecimal realPrice;
+
+        //TODO ADD PASSWORD CHECK(Milestone 3)
 
         while (quit != true) {
             System.out.println("\nPlease select a Function:");
@@ -163,10 +203,19 @@ public class StoreManager {
         }
     }
 
+    /**
+     * This method is an accessor for the Inventory.
+     * @return is a Inventory Object.
+     */
     public Inventory getInventory() {
         return this.inventory;
     }
 
+    /**
+     * This method is an accessor for the ShoppingCart corresponging to it's nickname.
+     * @param nick is a String.
+     * @return is a ShoppingCart Object.
+     */
     public ShoppingCart getCart(String nick) {
         for (ShoppingCart i: carts){
             if (i.getNick().equals(nick)){
@@ -175,4 +224,6 @@ public class StoreManager {
         }
         return null;
     }
+
+
 }

@@ -1,32 +1,64 @@
-import java.math.BigDecimal;
+/**
+ * @author Michael Silveira
+ * @studentID 101145789
+ * @date March 8th 2021
+ * @milestone 2
+ */
 
+/**
+ * The StoreView class is a UI frontend for each shopping cart.
+ */
 public class StoreView {
     private StoreManager manager;
     private ShoppingCart cart;
     private String nick;
 
+    /**
+     * This constructor innitializes Storeview.
+     * @param name is a String for nickname.
+     * @param manager is a Manager Object.
+     */
     public StoreView(String name, StoreManager manager){
         this.manager = manager;
         this.nick = name;
-        this.cart = manager.getCart(this.nick);
+        this.cart = this.manager.getCart(this.nick);
     }
 
+    /**
+     * This method is an accessor for the nickname.
+     * @return is a String.
+     */
     public String getNick() {
         return nick;
     }
 
+    /**
+     * This method is an accessor for the cart.
+     * @return is a ShoppingCart Object.
+     */
     public ShoppingCart getCart() {
         return cart;
     }
 
+    /**
+     * This method sets the nickname from a given String.
+     * @param nick is a String.
+     */
     public void setNick(String nick) {
         this.nick = nick;
     }
 
+    /**
+     * This method sets the cart from a given ShoppingCart
+     * @param cart is a ShoppingCart Object.
+     */
     public void setCart(ShoppingCart cart) {
         this.cart = cart;
     }
 
+    /**
+     * This is the StoreView Sub-Routine that runs the UI
+     */
     public void run() {
         boolean quitStoreView = false;
         String prodName = "";
@@ -72,7 +104,7 @@ public class StoreView {
                     prodName = in.getString();
                     System.out.println("Enter the quantity of items you want to remove from your cart: ");
                     qty = in.getInteger();
-                    this.cart.addProduct(manager.getInventory().getProduct(prodName), qty);
+                    this.cart.removeProduct(getCart().getProduct(prodName), qty);
                     break;
                 case 'h':
                 case 'H':
@@ -80,10 +112,10 @@ public class StoreView {
                     receipt = in.getCharacter();
                     if(receipt == 'y' || receipt == 'Y'){
                         System.out.println(this.cart);
-                        System.out.println("Total                   $" + this.cart.checkout());
+                        System.out.println("Total                   $" + this.cart.checkout(manager.getInventory()));
                     }
                     else{
-                        System.out.println("Your total is $" + this.cart.checkout());
+                        System.out.println("Your total is $" + this.cart.checkout(manager.getInventory()));
                     }
 
 
@@ -115,6 +147,7 @@ public class StoreView {
             System.out.println("Add New StoreView		        	N");
             System.out.println("Display StoreViews		        	D");
             System.out.println("Select StoreView		           	S");
+            System.out.println("Remove StoreView		           	R");
             System.out.println("Manage Store		            	M");
             System.out.println("Quit			                    Q");
 
@@ -136,6 +169,11 @@ public class StoreView {
                     manager.selectStoreView(in.getString());
                     break;
 
+                case 'r':
+                case 'R':
+                    System.out.println("Enter the name of your desired storeview: ");
+                    manager.removeStoreView(in.getString());
+                    break;
                 case 'm':
                 case 'M':
                     manager.run();

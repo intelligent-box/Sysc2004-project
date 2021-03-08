@@ -1,6 +1,9 @@
 /**
  * @author Tunde Forrest
- * THIS IS NOT MY CODE, I HAVE JUST USED IT WITH MY LICENCE FOR IT AND HAVE PROVIDED IT HERE FOR YOU, THE MARKING TA
+ * THIS IS NOT MY CODE
+ * I HAVE JUST USED IT WITH MY LICENCE FOR IT
+ * AND HAVE PROVIDED IT HERE FOR YOU
+ * THE MARKING TA TO USE
  */
 
 import java.io.*; //tell the java compiler that we'll be doing 	i/o
