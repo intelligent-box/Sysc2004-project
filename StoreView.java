@@ -9,7 +9,7 @@
  * The StoreView class is a UI frontend for each shopping cart.
  */
 public class StoreView {
-    private StoreManager manager;
+    private final StoreManager manager;
     private ShoppingCart cart;
     private String nick;
 
@@ -61,13 +61,12 @@ public class StoreView {
      */
     public void run() {
         boolean quitStoreView = false;
-        String prodName = "";
+        String prodName;
         char program;
-        int qty = 0;
-        char receipt = 'a';
-        Keyboard in = new Keyboard();
+        int qty;
+        char receipt;
 
-        while (quitStoreView != true) {
+        while (!quitStoreView) {
             System.out.println("\nPlease select a Function:");
             System.out.println("Function                        Type\n");
             System.out.println("Display Cart		        	C");
@@ -77,7 +76,7 @@ public class StoreView {
             System.out.println("Checkout		            	H");
             System.out.println("Return to Main Menu             Q");
 
-            program = in.getCharacter();
+            program = Keyboard.getCharacter();
             switch (program){
                 case 'c':
                 case 'C':
@@ -92,24 +91,24 @@ public class StoreView {
                 case 'a':
                 case 'A':
                     System.out.println("Enter the name of the product you want to add to your cart: ");
-                    prodName = in.getString();
+                    prodName = Keyboard.getString();
                     System.out.println("Enter the quantity of items you want to add to your cart: ");
-                    qty = in.getInteger();
+                    qty = Keyboard.getInteger();
                     this.cart.addProduct(manager.getInventory().getProduct(prodName), qty);
                     break;
 
                 case 'r':
                 case 'R':
                     System.out.println("Enter the name of the product you want to remove from your cart: ");
-                    prodName = in.getString();
+                    prodName = Keyboard.getString();
                     System.out.println("Enter the quantity of items you want to remove from your cart: ");
-                    qty = in.getInteger();
+                    qty = Keyboard.getInteger();
                     this.cart.removeProduct(getCart().getProduct(prodName), qty);
                     break;
                 case 'h':
                 case 'H':
                     System.out.println("Do you want a receipt? (y/n)");
-                    receipt = in.getCharacter();
+                    receipt = Keyboard.getCharacter();
                     if(receipt == 'y' || receipt == 'Y'){
                         System.out.println(this.cart);
                         System.out.println("Total                   $" + this.cart.checkout(manager.getInventory()));
@@ -139,9 +138,8 @@ public class StoreView {
 
         StoreManager manager = new StoreManager();
         char program;
-        Keyboard in = new Keyboard();
 
-        while (quitMain != true) {
+        while (!quitMain) {
             System.out.println("\nPlease select a Function:");
             System.out.println("Function                        Type\n");
             System.out.println("Add New StoreView		        	N");
@@ -151,7 +149,7 @@ public class StoreView {
             System.out.println("Manage Store		            	M");
             System.out.println("Quit			                    Q");
 
-            program = in.getCharacter();
+            program = Keyboard.getCharacter();
             switch (program){
                 case 'n':
                 case 'N':
@@ -166,13 +164,13 @@ public class StoreView {
                 case 's':
                 case 'S':
                     System.out.println("Enter the name of your desired storeview: ");
-                    manager.selectStoreView(in.getString());
+                    manager.selectStoreView(Keyboard.getString());
                     break;
 
                 case 'r':
                 case 'R':
                     System.out.println("Enter the name of your desired storeview: ");
-                    manager.removeStoreView(in.getString());
+                    manager.removeStoreView(Keyboard.getString());
                     break;
                 case 'm':
                 case 'M':

@@ -33,7 +33,6 @@ public class ShoppingCart extends Inventory {
     public void removeProduct(Product oldProduct) {
         getQuantity().remove(getProducts().indexOf(oldProduct));
         getProducts().remove(getProducts().indexOf(oldProduct));
-        return;
     }
 
     /**
@@ -49,7 +48,6 @@ public class ShoppingCart extends Inventory {
             int newQTY = getQuantity().get(getProducts().indexOf(oldProduct)) - qtyToRemove;
             getQuantity().set(getProducts().indexOf(oldProduct), newQTY);
         }
-        return;
     }
 
     /**

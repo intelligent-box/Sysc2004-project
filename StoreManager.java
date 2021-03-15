@@ -10,9 +10,9 @@ import java.util.ArrayList;
  * The StoreManager class is the management backend that hosts the inventory, storeviews and shoppingcarts.
  */
 public class StoreManager {
-    private Inventory inventory;
-    private ArrayList<StoreView> views;
-    private ArrayList<ShoppingCart> carts;
+    private final Inventory inventory;
+    private final ArrayList<StoreView> views;
+    private final ArrayList<ShoppingCart> carts;
 
     /**
      * This default constructor initializes the inventory and arrayLists.
@@ -79,12 +79,12 @@ public class StoreManager {
      * @return is a String with the storeview names
      */
     public String displayStoreViews() {
-        String s = "StoreView Names\n";
+        StringBuilder s = new StringBuilder("StoreView Names\n");
         for (StoreView i: views){
-            s += i.getNick();
-            s += "\n";
+            s.append(i.getNick());
+            s.append("\n");
         }
-        return s;
+        return s.toString();
     }
 
     /**
@@ -108,7 +108,7 @@ public class StoreManager {
             if(i.getNick().equals(nick)){
                 //return cart contents
                 carts.remove(views.indexOf(i));
-                views.remove(views.indexOf(i));
+                views.remove(i);
             }
         }
     }
@@ -119,14 +119,12 @@ public class StoreManager {
     public void run(){ //manage backend
         boolean quit = false;
         char program;
-        Keyboard in = new Keyboard();
         String itemName, itemID, itemPrice;
         int itemQTY;
-        BigDecimal realPrice;
 
         //TODO ADD PASSWORD CHECK(Milestone 3)
 
-        while (quit != true) {
+        while (!quit) {
             System.out.println("\nPlease select a Function:");
             System.out.println("Function                        Type\n");
             System.out.println("Display Inventory		        	D");
@@ -136,7 +134,7 @@ public class StoreManager {
             System.out.println("Override Stock		            	O");
             System.out.println("Return to Main Menu                 Q");
 
-            program = in.getCharacter();
+            program = Keyboard.getCharacter();
             switch (program){
                 case 'd':
                 case 'D':
@@ -146,13 +144,13 @@ public class StoreManager {
                 case 'n':
                 case 'N':
                     System.out.println("Product name: ");
-                    itemName = in.getString();
+                    itemName = Keyboard.getString();
                     System.out.println("Product ID: ");
-                    itemID = in.getString();
+                    itemID = Keyboard.getString();
                     System.out.println("Product Price: ");
-                    itemPrice = in.getString();
+                    itemPrice = Keyboard.getString();
                     System.out.println("Product QTY: ");
-                    itemQTY = in.getInteger();
+                    itemQTY = Keyboard.getInteger();
                     this.inventory.addProduct(new Product(itemName, itemID ,new BigDecimal(itemPrice)), itemQTY);
                     System.out.println("\nProduct Added");
                     break;
@@ -160,9 +158,9 @@ public class StoreManager {
                 case 's':
                 case 'S':
                     System.out.println("Product ID: ");
-                    itemID = in.getString();
+                    itemID = Keyboard.getString();
                     System.out.println("Product QTY to add: ");
-                    itemQTY = in.getInteger();
+                    itemQTY = Keyboard.getInteger();
                     this.inventory.stock(itemID, itemQTY);
                     System.out.format("\nInventory now contains %d %s",
                             this.inventory.getQty(itemID),
@@ -172,9 +170,9 @@ public class StoreManager {
                 case 'r':
                 case 'R':
                     System.out.println("Product ID: ");
-                    itemID = in.getString();
+                    itemID = Keyboard.getString();
                     System.out.println("Product QTY to remove: ");
-                    itemQTY = in.getInteger();
+                    itemQTY = Keyboard.getInteger();
                     this.inventory.stock(itemID, 0-itemQTY);
                     System.out.format("\nInventory now contains %d %s",
                             this.inventory.getQty(itemID),
@@ -184,9 +182,9 @@ public class StoreManager {
                 case 'o':
                 case 'O':
                     System.out.println("Product ID: ");
-                    itemID = in.getString();
+                    itemID = Keyboard.getString();
                     System.out.println("Product QTY: ");
-                    itemQTY = in.getInteger();
+                    itemQTY = Keyboard.getInteger();
                     this.inventory.setQTY(itemID, itemQTY);
                     System.out.format("Inventory now contains %d %s",
                             this.inventory.getQty(itemID),

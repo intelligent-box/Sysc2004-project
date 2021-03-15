@@ -124,14 +124,14 @@ public class Inventory {
      */
     @Override
     public String toString() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < products.size(); i++){
-            str += products.get(i);
-            str += ", Quantity = ";
-            str += quantity.get(i);
-            str += "\n";
+            str.append(products.get(i));
+            str.append(", Quantity = ");
+            str.append(quantity.get(i));
+            str.append("\n");
         }
-        return str;
+        return str.toString();
     }
 
     /**
