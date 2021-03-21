@@ -1,4 +1,4 @@
-package store.storeTest;
+package storeTest;
 import org.junit.jupiter.api.*;
 import store.Inventory;
 import store.Product;

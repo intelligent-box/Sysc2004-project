@@ -1,9 +1,6 @@
-package store.storeTest;
+package storeTest;
 import org.junit.jupiter.api.*;
 import store.StoreManager;
-import store.Product;
-
-import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 public class StoreManagerTest {
