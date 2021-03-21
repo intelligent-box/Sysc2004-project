@@ -1,4 +1,4 @@
-/**
+package store; /**
  * @author Michael Silveira
  * @studentID 101145789
  * @date March 8th 2021
@@ -185,7 +185,7 @@ public class StoreManager {
                     itemID = Keyboard.getString();
                     System.out.println("Product QTY: ");
                     itemQTY = Keyboard.getInteger();
-                    this.inventory.setQTY(itemID, itemQTY);
+                    this.inventory.setQty(itemID, itemQTY);
                     System.out.format("Inventory now contains %d %s",
                             this.inventory.getQty(itemID),
                             this.inventory.getProduct(itemID));

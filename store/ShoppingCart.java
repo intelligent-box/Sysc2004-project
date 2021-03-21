@@ -1,4 +1,4 @@
-/**
+package store; /**
  * @author Michael Silveira
  * @studentID 101145789
  * @date March 8th 2021
@@ -77,7 +77,7 @@ public class ShoppingCart extends Inventory {
                 sum = sum.add(this.getProducts().get(i).getPrice().multiply(BigDecimal.valueOf(this.getQuantity().get(i))));
             }
             else{
-                this.setQTY(this.getProducts().get(i).getId(), inventory.getQty(this.getProducts().get(i).getId()));
+                this.setQty(this.getProducts().get(i).getId(), inventory.getQty(this.getProducts().get(i).getId()));
                 sum = sum.add(this.getProducts().get(i).getPrice().multiply(BigDecimal.valueOf(this.getQuantity().get(i))));
             }
         }

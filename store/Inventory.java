@@ -1,4 +1,4 @@
-/**
+package store; /**
  * @author Michael Silveira
  * @studentID 101145789
  * @date March 8th 2021
@@ -109,7 +109,7 @@ public class Inventory {
      * @param qty is an int for the quantity being set.
      * @return is a boolean of the success of the method running correctly.
      */
-    public boolean setQTY(String id, int qty){
+    public boolean setQty(String id, int qty){
         Product i = getProduct(id);
         if (i != null) {
             quantity.set(products.indexOf(i), qty);

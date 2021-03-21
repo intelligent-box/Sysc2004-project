@@ -1,4 +1,4 @@
-/**
+package store; /**
  * @author Tunde Forrest
  * THIS IS NOT MY CODE
  * I HAVE JUST USED IT WITH MY LICENCE FOR IT
