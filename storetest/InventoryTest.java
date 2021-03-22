@@ -9,7 +9,6 @@ import org.junit.jupiter.api.*;
 import store.Inventory;
 import store.Product;
 import java.math.BigDecimal;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

@@ -7,7 +7,6 @@ package storetest;/**
 
 import org.junit.jupiter.api.*;
 import store.StoreManager;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
