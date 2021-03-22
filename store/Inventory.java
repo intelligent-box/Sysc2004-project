@@ -1,8 +1,8 @@
 package store; /**
  * @author Michael Silveira
  * @studentID 101145789
- * @date March 8th 2021
- * @milestone 2
+ * @date March 21th 2021
+ * @milestone 3
  */
 import java.util.ArrayList;
 
