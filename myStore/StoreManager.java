@@ -1,11 +1,17 @@
-package store; /**
+package myStore; /**
  * @author Michael Silveira
  * @studentID 101145789
  * @date March 21th 2021
  * @milestone 3
  */
+import javax.swing.*;
+import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+
+import static java.awt.BorderLayout.CENTER;
+import static java.awt.BorderLayout.PAGE_END;
+
 /**
  * The StoreManager class is the management backend that hosts the inventory, storeviews and shoppingcarts.
  */
@@ -13,7 +19,8 @@ public class StoreManager {
     private final Inventory inventory;
     private final ArrayList<StoreView> views;
     private final ArrayList<ShoppingCart> carts;
-
+    private final JFrame view;
+    public static final Dimension buttonDimension = new Dimension(200,25);
     /**
      * This default constructor initializes the inventory and arrayLists.
      */
@@ -21,6 +28,17 @@ public class StoreManager {
         inventory = new Inventory();
         views = new ArrayList<>();
         carts = new ArrayList<>();
+
+        view = new JFrame("Manager");
+        view.setSize(800,800);
+        view.setPreferredSize(new Dimension(800, 800));
+        view.setLayout(new BorderLayout());
+        view.setResizable(true);
+        view.setLocationRelativeTo(null);
+        view.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+        view.add(getContentPane(), CENTER);
+        view.add(getControlPane(), PAGE_END);
     }
 
     /**
@@ -223,5 +241,51 @@ public class StoreManager {
         return null;
     }
 
+    /**
+     * this is an access for the ArrayList of StoreViews
+     * @return is an ArrayList of StoreView Objects.
+     */
+    public ArrayList<StoreView> getViews() {
+        return views;
+    }
 
+    /**
+     * this sets the management window to visible.
+     */
+    public void enableManagementMode() {
+        this.view.setVisible(true);
+    }
+
+    /**
+     * this creates a content panel not currently in use.
+     * @return is a JPanel
+     */
+    private JPanel getContentPane(){
+        JPanel pane = new JPanel();
+        pane.add(new JLabel("USE COMMAND LINE UI ran out of time to develop this extra feature for now :("));
+        return pane;
+    }
+
+    /**
+     * This creates a control panel
+     * @return is a JPanel
+     */
+    private JPanel getControlPane() {
+        JPanel pane = new JPanel();
+        pane.add(getQuitButton());
+        return pane;
+    }
+
+    /**
+     * this creates a Quit Button.
+     * @return is a JButton
+     */
+    private JButton getQuitButton() {
+        JButton button = new JButton("Quit");
+        button.setSize(buttonDimension);
+        button.addActionListener(i -> {
+            this.view.setVisible(false);
+        });
+        return button;
+    }
 }

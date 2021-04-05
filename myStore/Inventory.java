@@ -1,4 +1,4 @@
-package store; /**
+package myStore; /**
  * @author Michael Silveira
  * @studentID 101145789
  * @date March 21th 2021
