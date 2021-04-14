@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 /**
  * The ShoppingCart class extends the Inventory class to add a nickname parameter, and functionality to remove items and checkout.
  */
-public class ShoppingCart extends Inventory {
+public class ShoppingCart extends ProductStockContainer {
     private String nick;
     public ShoppingCart(String nickname){
         super();
@@ -24,30 +24,6 @@ public class ShoppingCart extends Inventory {
     @Override
     public boolean addProduct(Product newProduct) {
         return super.addProduct(newProduct, 1);
-    }
-
-    /**
-     * This method removes all of a Product object from the ShoppingCart.
-     * @param oldProduct is a Product object.
-     */
-    public void removeProduct(Product oldProduct) {
-        getQuantity().remove(getProducts().indexOf(oldProduct));
-        getProducts().remove(getProducts().indexOf(oldProduct));
-    }
-
-    /**
-     * This method removes a given quantity of a given product.
-     * @param oldProduct is a Product object.
-     * @param qtyToRemove is an int of the amount of items to remove.
-     */
-    public void removeProduct(Product oldProduct, int qtyToRemove) {
-        if (getQuantity().get(getProducts().indexOf(oldProduct)) <= qtyToRemove){
-            this.removeProduct(oldProduct);
-        }
-        else{
-            int newQTY = getQuantity().get(getProducts().indexOf(oldProduct)) - qtyToRemove;
-            getQuantity().set(getProducts().indexOf(oldProduct), newQTY);
-        }
     }
 
     /**
